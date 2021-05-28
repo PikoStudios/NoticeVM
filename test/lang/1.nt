@@ -1,0 +1,7 @@
+use std;
+
+event on_start() do
+    io.printf("Whats your name?\n");
+    string name = io.get_input();
+    io.puts("Hello ${name}!"); // io.puts() will print it with a \n everytime
+end

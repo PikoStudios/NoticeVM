@@ -1,0 +1,32 @@
+use std;
+use std.gui;
+use std.gui.color;
+
+fn draw(ref gui app) do
+    ref canvas ctx = app.canvas; // This is the area where eveything is drawn
+    // ref makes it so it doesn't copy app.canvas, but edits the same place in memory
+    Rectangle shape(100,100,50,50, ColorRGB::RED);
+
+    while (app.is_open) do
+        ctx.clear(ColorRGB::WHITE);
+        shape.draw(ctx);
+        ctx.draw(); // Draws everything in the framebuffer
+    end
+end
+
+event on_start() do
+    int width, height = 400;
+    gui app(width, height);
+
+    app.start();
+    draw(app);
+end
+
+event on_close() do
+    app.canvas.free();
+    app.free();
+    app.close();
+end
+    
+
+
