@@ -24,6 +24,7 @@ int main(int argc, char** argv)
         if (pstat != PARSER_SUCCESS)
             return 1;
 
+        // TODO: REMOVE FOR DEBUG
         for (int i = 0; i < tokens.ptr; i++)
         {
             Token* t = token_list_get(&tokens, i);
@@ -31,6 +32,7 @@ int main(int argc, char** argv)
         }
 
 
+        token_list_destroy(&tokens);
         free(source);
     }
 

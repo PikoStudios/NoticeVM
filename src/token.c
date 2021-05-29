@@ -37,3 +37,13 @@ void init_token_list(TokenList* list, int size)
     list->ptr = 0;
     list->size = size;
 }
+
+void token_list_destroy(TokenList* list)
+{
+    for (int i = 0; i < list->ptr; i++)
+    {
+        free(list->data[i]);
+    }
+    free(list->data);
+    
+}

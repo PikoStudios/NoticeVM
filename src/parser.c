@@ -18,6 +18,8 @@ ParserStatus parser_start(TokenList* list, const char* source)
         
         
         if (lex[0] == '\0') break;
+        // TODO: care more about empty lines
+        // TODO: care about tabs
         
 
         // This is a numerical constant
