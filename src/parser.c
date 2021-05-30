@@ -18,6 +18,7 @@ ParserStatus parser_start(TokenList* list, const char* source)
         
         
         if (lex[0] == '\0') break;
+        if (lex[0] == '\r') break;
         // TODO: care more about empty lines
         // TODO: care about tabs
         
@@ -26,7 +27,9 @@ ParserStatus parser_start(TokenList* list, const char* source)
         if (lex[0] == '#')
         {
             int num = parser_get_number(lex);
+#ifdef DEBUG
             printf("UINT_32: Line %i, Value: %i\n", line, num);
+#endif
             token_list_add(list, token_create(NUMBER, num, line));
             
         }
@@ -38,7 +41,9 @@ ParserStatus parser_start(TokenList* list, const char* source)
             if (inst >= 0)
             {
                 token_list_add(list, token_create(INST, inst, line));
+#ifdef DEBUG
                 printf("INSTRUCTION: Line: %i, Value: %s\n", line, lex);
+#endif
             }
             else 
             {
@@ -49,9 +54,20 @@ ParserStatus parser_start(TokenList* list, const char* source)
         }
 
         // New Line
-        if (source[i] == '\n') line++;
-
-        else if (source[i] == '\0') break;
+        if (source[i] == '\n') 
+        {
+            line++;
+#ifdef DEBUG
+            printf("Reached New line\n");
+#endif
+        }
+        else if (source[i] == '\0')
+        {
+#ifdef DEBUG
+            printf("Reached end of file");
+#endif
+            break;
+        }
         // else if (source[i] == -1) break; <-- possible fix on WSL
 
         lexi = 0;
